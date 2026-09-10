@@ -1,0 +1,5 @@
+#.gitignore stuff, the stuff here doesnt commit to get
+
+.venv/
+.idea/
+.DS_STORE/
