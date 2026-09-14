@@ -71,5 +71,7 @@ while running:
 
     pg.display.flip()
 
+print("[drove] Exiting...")
 pg.quit()
+print("[Pygame] Exiting...")
 sys.exit()
