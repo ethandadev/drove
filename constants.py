@@ -42,3 +42,7 @@ TILES = {
 }
 
 map1 = "assets/drove-map-1.txt"
+
+
+#options
+show_fps = True

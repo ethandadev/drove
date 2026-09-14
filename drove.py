@@ -1,4 +1,11 @@
+import os
 import sys
+
+if getattr(sys, 'frozen', False):
+    os.chdir(os.path.dirname(sys.argv[0]))
+else:
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 import pygame as pg
 import constants as c
 from carController import Car
@@ -6,8 +13,13 @@ from mapManager import mapManager
 from hud import Hud
 
 pg.init()
-screen = pg.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
+print("[Pygame] Initialized")
+print("[drove] Starting Game...")
+icon_image = pg.image.load('assets/icon.png')
+pg.display.set_icon(icon_image)
+screen = pg.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pg.SCALED, vsync=1)
 pg.display.set_caption(c.name)
+
 
 car_img = pg.image.load(c.car1_path).convert_alpha()
 
@@ -30,8 +42,8 @@ while running:
             camera_follows_rotation = not camera_follows_rotation
 
     keys = pg.key.get_pressed()
-    player.update(keys)
-    hud.update(player.get_speed())
+    player.update(keys, map_manager.get_tile_at(player.x, player.y))
+    hud.update(player.get_speed(), clock.get_fps())
 
     margin = max(c.car1_width, c.car1_height) / 2
     player.x = max(margin, min(player.x, map_manager.map_width - margin))

@@ -11,6 +11,7 @@ class mapManager:
         self.tiles = []
         self.map_width = 0
         self.map_height = 0
+        print("[Map Manager] Initialized")
 
     def load_level_data(self, filepath):
         grid = []
@@ -33,22 +34,27 @@ class mapManager:
             self.tiles[tile_id] = image
 
     def load_map(self):
-        self.load_level_data(c.map1)
-        self.load_tiles()
+        print("[Map Manager] Starting to Load Map")
+        try:
+            self.load_level_data(c.map1)
+            self.load_tiles()
 
-        rows = len(self.map_data)
-        cols = len(self.map_data[0]) if rows else 0
+            rows = len(self.map_data)
+            cols = len(self.map_data[0]) if rows else 0
 
-        self.map_width = cols * c.TILE_SIZE
-        self.map_height = rows * c.TILE_SIZE
-        self.map = pg.Surface((self.map_width, self.map_height)).convert_alpha()
+            self.map_width = cols * c.TILE_SIZE
+            self.map_height = rows * c.TILE_SIZE
+            self.map = pg.Surface((self.map_width, self.map_height)).convert_alpha()
 
-        for row_index, row in enumerate(self.map_data):
-            for col_index, tile_id in enumerate(row):
-                tile_image = self.tiles.get(tile_id)
-                if tile_image is None:
-                    continue
-                self.map.blit(tile_image, (col_index * c.TILE_SIZE, row_index * c.TILE_SIZE))
+            for row_index, row in enumerate(self.map_data):
+                for col_index, tile_id in enumerate(row):
+                    tile_image = self.tiles.get(tile_id)
+                    if tile_image is None:
+                        continue
+                    self.map.blit(tile_image, (col_index * c.TILE_SIZE, row_index * c.TILE_SIZE))
+            print("[Map Manager] Loaded Map")
+        except Exception as e:
+            print(f"[Map Manager] Error: {e}")
 
     def clamp_camera(self, camera_x, camera_y):
         max_x = max(0, self.map_width - c.SCREEN_WIDTH)
@@ -81,5 +87,14 @@ class mapManager:
         rotated = pg.transform.rotate(chunk, -angle)
         dest_rect = rotated.get_rect(center=(c.SCREEN_WIDTH / 2, c.SCREEN_HEIGHT / 2))
         surface.blit(rotated, dest_rect.topleft)
+
+    def get_tile_at(self, x, y):
+        col = int(x // c.TILE_SIZE)
+        row = int(y // c.TILE_SIZE)
+        try:
+            return self.map_data[row][col]
+        except IndexError as e:
+            print(f"[Map Manager] Error: {e}")
+
 
 

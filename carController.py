@@ -13,17 +13,23 @@ class Car:
         self.acceleration = 0.2
         self.friction = 0.05
         self.turn_speed = 4
+        print("[Car Controller] Initialized")
 
-    def update(self, keys_pressed):
+    def update(self, keys_pressed, tile_on):
+        if tile_on == 0:
+            self.speed /= 1.5 if self.speed > 4 else 1
+            grass_penalty = 0.5
+        else:
+            grass_penalty = 1
         abs_speed = abs(self.speed)
         turn_modifier = self.get_turn_modifier(abs_speed)
 
         steering_dir = -1 if self.speed < 0 else 1
 
         if keys_pressed[pg.K_LEFT] or keys_pressed[pg.K_a]:
-            self.angle += self.turn_speed * turn_modifier * steering_dir
+            self.angle += self.turn_speed * turn_modifier * steering_dir * grass_penalty
         if keys_pressed[pg.K_RIGHT] or keys_pressed[pg.K_d]:
-            self.angle -= self.turn_speed * turn_modifier * steering_dir
+            self.angle -= self.turn_speed * turn_modifier * steering_dir * grass_penalty
 
         if keys_pressed[pg.K_UP] or keys_pressed[pg.K_w]:
             self.speed = min(self.speed + self.acceleration, self.max_speed)
@@ -55,7 +61,7 @@ class Car:
 
     def get_turn_modifier(self, abs_speed: float) -> float:
         if abs_speed <= 0:
-            return 0.1
+            return 0.01
 
         ramp_up = 1.0 - math.exp(-3.5 * abs_speed)
 
