@@ -9,7 +9,7 @@ class Car:
         self.image = image
         self.angle = 0
         self.speed = 0
-        self.max_speed = 12
+        self.max_speed = 36
         self.acceleration = 0.2
         self.friction = 0.05
         self.turn_speed = 4
