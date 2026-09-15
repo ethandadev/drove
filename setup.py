@@ -14,7 +14,7 @@ DATA_FILES = [
 OPTIONS = {
     'argv_emulation': False,
     'iconfile': 'assets/AppIcon.icns',
-    'packages': ['pygame'],
+    'packages': ['pygame', 'pygame-essentials'],
     'excludes': [
         'test',
         'tests',

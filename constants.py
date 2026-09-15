@@ -25,24 +25,24 @@ car1_height = 150
 #maps
 
 TILES = {
-    0: "assets/grass_tile.png",
-    1: "assets/straight_vertical_left_tile.png",
-    2: "assets/straight_vertical_right_tile.png",
-    3: "assets/straight_horizontal_left_tile.png",
-    4: "assets/straight_horizontal_right_tile.png",
-    5: "assets/road_empty_tile.png",
-    6: "assets/straight_vertical_left_empty.png",
-    7: "assets/straight_vertical_right_empty.png",
-    8: "assets/straight_horizontal_left_empty.png",
-    9: "assets/straight_horizontal_right_empty.png",
-    10: "assets/road_corner_top_left.png",
-    11: "assets/road_corner_top_right.png",
-    12: "assets/road_corner_bottom_left.png",
-    13: "assets/road_corner_bottom_right.png",
+    0: "assets/tiles/grass_tile.png",
+    1: "assets/tiles/straight_vertical_left_tile.png",
+    2: "assets/tiles/straight_vertical_right_tile.png",
+    3: "assets/tiles/straight_horizontal_left_tile.png",
+    4: "assets/tiles/straight_horizontal_right_tile.png",
+    5: "assets/tiles/road_empty_tile.png",
+    6: "assets/tiles/straight_vertical_left_empty.png",
+    7: "assets/tiles/straight_vertical_right_empty.png",
+    8: "assets/tiles/straight_horizontal_left_empty.png",
+    9: "assets/tiles/straight_horizontal_right_empty.png",
+    10: "assets/tiles/road_corner_top_left.png",
+    11: "assets/tiles/road_corner_top_right.png",
+    12: "assets/tiles/road_corner_bottom_left.png",
+    13: "assets/tiles/road_corner_bottom_right.png",
 }
 
 map1 = "assets/drove-map-1.txt"
 
-
-#options
-show_fps = True
+#fonts
+font_regular_path = "assets/font_regular.otf"
+font_bold_path = "assets/font_bold.otf"
