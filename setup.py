@@ -7,6 +7,24 @@ Usage:
 
 from setuptools import setup
 
+# py2app's built-in pygame recipe expects pygame_icon.icns, which only classic
+# pygame has. pygame-ce doesn't ship it, so only copy the files that exist.
+import os
+import py2app.recipes.pygame as pygame_recipe
+
+
+def pygame_ce_recipe(cmd, mf):
+    module = mf.findNode("pygame")
+    if module is None or module.filename is None:
+        return None
+    folder = os.path.dirname(module.filename)
+    files = [os.path.join(folder, name) for name in ("freesansbold.ttf", "pygame_icon.icns")
+             if os.path.exists(os.path.join(folder, name))]
+    return {"loader_files": [("pygame", files)]}
+
+
+pygame_recipe.check = pygame_ce_recipe
+
 APP = ['drove.py']
 DATA_FILES = [
     'assets',
@@ -14,7 +32,7 @@ DATA_FILES = [
 OPTIONS = {
     'argv_emulation': False,
     'iconfile': 'assets/AppIcon.icns',
-    'packages': ['pygame', 'pygame-essentials'],
+    'packages': ['pygame', 'pygame_essentials'],
     'excludes': [
         'test',
         'tests',
@@ -33,10 +51,10 @@ OPTIONS = {
     ],
     'plist': {
         'CFBundleIdentifier': 'com.ethandadev.drove',
-        'CFBundleVersion': '0.1.0',
+        'CFBundleVersion': '0.2.0',
         'CFBundleName': 'Drove',
         'CFBundleDisplayName': 'Drove',
-        'CFBundleShortVersionString': '0.1.0',
+        'CFBundleShortVersionString': '0.2.0',
     },
 }
 
