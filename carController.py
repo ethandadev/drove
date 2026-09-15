@@ -17,7 +17,7 @@ class Car:
 
     def update(self, keys_pressed, tile_on):
         if tile_on == 0:
-            self.speed /= 1.5 if self.speed > 4 else 1
+            self.speed /= 1.5 if self.speed > 5 else 1
             grass_penalty = 0.5
         else:
             grass_penalty = 1
@@ -30,11 +30,17 @@ class Car:
             self.angle += self.turn_speed * turn_modifier * steering_dir * grass_penalty
         if keys_pressed[pg.K_RIGHT] or keys_pressed[pg.K_d]:
             self.angle -= self.turn_speed * turn_modifier * steering_dir * grass_penalty
+        if self.speed <= 12:
+            dynamic_accel = self.acceleration
+        elif self.speed <= 28:
+            dynamic_accel = self.acceleration / (self.speed / 4)
+        else:
+            dynamic_accel = self.acceleration / (self.speed / 2)
 
         if keys_pressed[pg.K_UP] or keys_pressed[pg.K_w]:
-            self.speed = min(self.speed + self.acceleration, self.max_speed)
+            self.speed = min(self.speed + dynamic_accel, self.max_speed)
         elif keys_pressed[pg.K_DOWN] or keys_pressed[pg.K_s]:
-            self.speed = max(self.speed - self.acceleration, -self.max_speed / 2)
+            self.speed = max(self.speed - dynamic_accel, -self.max_speed / 2)
         else:
             if self.speed > 0:
                 self.speed = max(0, self.speed - self.friction)
