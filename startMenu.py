@@ -25,24 +25,3 @@ class StartMenu:
         self.credit_text.draw(screen)
         self.play_button.draw(screen)
         self.quit_button.draw(screen)
-
-
-if __name__ == "__main__":
-    pg.init()
-    screen = pg.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
-    menu = StartMenu()
-
-    running = True
-    while running:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                running = False
-            menu.handle_event(event)
-
-        if menu.play_button.was_clicked():
-            print("Play clicked!")
-
-        menu.draw(screen)
-        pg.display.flip()
-
-    pg.quit()
