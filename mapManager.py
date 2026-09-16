@@ -7,6 +7,9 @@ import constants as c
 class mapManager:
     def __init__(self):
         self.map = None
+        self.minimap = None
+        self.minimap_scale_x = 0
+        self.minimap_scale_y = 0
         self.map_data = []
         self.tiles = []
         self.map_width = 0
@@ -53,6 +56,12 @@ class mapManager:
                         continue
                     self.map.blit(tile_image, (col_index * c.TILE_SIZE, row_index * c.TILE_SIZE))
             print("[Map Manager] Loaded Map")
+            MINIMAP_SIZE = 180
+
+            self.minimap = pg.transform.smoothscale(self.map, (MINIMAP_SIZE, MINIMAP_SIZE))
+            self.minimap_scale_x = MINIMAP_SIZE / self.map_width
+            self.minimap_scale_y = MINIMAP_SIZE / self.map_height
+            print("[Map Manager] Loaded Minimap")
         except Exception as e:
             print(f"[Map Manager] Error: {e}")
 
@@ -96,5 +105,7 @@ class mapManager:
         except IndexError as e:
             print(f"[Map Manager] Error: {e}")
 
+    def get_minimap(self):
+        return self.minimap, self.minimap_scale_x, self.minimap_scale_y
 
 

@@ -26,18 +26,25 @@ pg.display.set_caption(c.name)
 car_img = pg.image.load(c.car1_path).convert_alpha()
 
 player = Car(0, 0, car_img)
-hud = Hud()
 map_manager = mapManager()
 map_manager.load_map()
+hud = Hud(*map_manager.get_minimap())
 startMenu = StartMenu()
-
-debug = pe.DebugOverlay(visible=True, position=(10, 10), font_size=22)
 
 clock = pg.time.Clock()
 
 state = "start"
 
 camera_follows_rotation = False
+
+debug = pe.DebugOverlay(visible=False, position=(10, 10), font_size=22)
+debug.watch("car pos", lambda: f"{player.x:.0f}, {player.y:.0f}")
+debug.watch("current tile on", lambda: map_manager.get_tile_at(player.x, player.y))
+debug.watch("camera mode", lambda: "camera follows rotation" if camera_follows_rotation else "camera dont follow rotation")
+debug.watch("current state", lambda: state)
+debug.watch("current true speed", lambda: f"{player.speed:.0f}")
+debug.watch("car angle", lambda: f"{player.angle:.0f}")
+
 
 running = True
 while running:
