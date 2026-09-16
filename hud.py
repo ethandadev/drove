@@ -16,10 +16,14 @@ class Hud:
         self.minimap = minimap
         self.minimap_scale_x = minimap_scale_x
         self.minimap_scale_y = minimap_scale_y
+        self.player_x = 0
+        self.player_y = 0
         print("[Hud] Initialized")
 
-    def update(self, speed):
+    def update(self, speed, player_x, player_y):
         self.speed = speed
+        self.player_x = player_x
+        self.player_y = player_y
 
     def draw(self, screen):
         pg.draw.rect(screen, c.GRAY, self.bg_rect)
@@ -27,3 +31,17 @@ class Hud:
         self.speed_text.text = speed_text
 
         self.speed_text.draw(screen)
+
+        mini_x = self.player_x * self.minimap_scale_x
+        mini_y = self.player_y * self.minimap_scale_y
+        minimap_pos = (c.SCREEN_WIDTH - c.MINIMAP_SIZE - c.MINIMAP_MARGIN, c.MINIMAP_MARGIN)
+
+        screen.blit(self.minimap, minimap_pos)
+        pg.draw.circle(
+            screen, c.WHITE,
+            (minimap_pos[0] + mini_x, minimap_pos[1] + mini_y),
+            4
+        )
+
+
+

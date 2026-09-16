@@ -77,3 +77,6 @@ class Car:
         min_turn_ratio = 0.45
 
         return max(min_turn_ratio, ramp_up * decay)
+
+    def get_pos(self):
+        return self.x, self.y

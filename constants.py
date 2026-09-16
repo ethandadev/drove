@@ -15,6 +15,9 @@ GREEN = (60, 208, 0)
 
 name = "drove"
 
+MINIMAP_SIZE = 180
+MINIMAP_MARGIN = 16
+
 #Paths
 
 car1_path = "assets/car1.png"

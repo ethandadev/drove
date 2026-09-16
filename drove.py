@@ -69,7 +69,7 @@ while running:
     else:
         keys = pg.key.get_pressed()
         player.update(keys, map_manager.get_tile_at(player.x, player.y))
-        hud.update(player.get_speed())
+        hud.update(player.get_speed(), *player.get_pos())
 
         margin = max(c.car1_width, c.car1_height) / 2
         player.x = max(margin, min(player.x, map_manager.map_width - margin))
